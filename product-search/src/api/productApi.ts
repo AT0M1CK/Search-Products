@@ -29,16 +29,16 @@ export const fetchProducts = async (
     const response = await axiosInstance.get<Product[]>(API_URL, config);
     const products = response.data;
 
-    if (searchQuery) {
+    if (searchQuery.trim()) {
       return products.filter(product =>
-        product.title.includes(searchQuery)
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
     return products;
   } catch (error) {
     if (axios.isCancel(error)) {
-      console.log('Request canceled:', error.message);
+      console.log('Request canceled:', error.message); //thje cancel message
       return [];
     }
     throw error;
