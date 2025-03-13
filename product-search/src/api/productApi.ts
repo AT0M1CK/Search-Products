@@ -3,6 +3,7 @@ import { Product } from '../types/product';
 
 const API_URL = 'http://fakestoreapi.in/api/products';
 
+// Create a cancelable axios instance
 const axiosInstance = axios.create();
 
 export const cancelPreviousRequest = (controller: AbortController | null) => {
@@ -29,6 +30,7 @@ export const fetchProducts = async (
     const response = await axiosInstance.get<Product[]>(API_URL, config);
     const products = response.data;
 
+    // Filter products based on search query if provided
     if (searchQuery.trim()) {
       return products.filter(product =>
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -38,7 +40,7 @@ export const fetchProducts = async (
     return products;
   } catch (error) {
     if (axios.isCancel(error)) {
-      console.log('Request canceled:', error.message); //thje cancel message
+      console.log('Request canceled:', error.message);
       return [];
     }
     throw error;
