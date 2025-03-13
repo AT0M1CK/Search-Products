@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import SearchInput from "./components/SearchInput";
+import { SearchInput } from "./components/SearchInput";
 
 // Create a client
 const queryClient = new QueryClient({
